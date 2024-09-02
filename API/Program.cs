@@ -19,7 +19,7 @@ namespace API
                     name: MyAllowSpecificOrigins,
                     policy =>
                     {
-                        policy.AllowAnyOrigin()
+                        policy.WithOrigins("*")
                             .AllowAnyMethod()
                             .AllowAnyHeader();
                     }
@@ -47,11 +47,8 @@ namespace API
             app.UseWebSockets();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
                 app.UseSwagger();
                 app.UseSwaggerUI();
-            }
 
             app.UseHttpsRedirection();
 
