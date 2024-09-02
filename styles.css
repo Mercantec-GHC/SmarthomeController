@@ -1,0 +1,84 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0;
+}
+
+.house {
+  display: flex;
+  flex-direction: column; /* Arranger værelser lodret */
+  flex-wrap: wrap; /* Tillad værelserne at bryde til næste linje */
+  width: 80%; /* Giv huset en fleksibel bredde */
+  max-width: 1200px; /* Sæt en maksimal bredde for huset */
+  border: 2px solid #000;
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.room {
+  border: 1px solid #000;
+  box-sizing: border-box;
+  padding: 10px;
+  margin-top: 5px;
+  background-color: #e0e0e0;
+  flex: 1 1 calc(33.333% - 20px); /* Tre værelser per række med margin */
+  /* Giv værelserne plads til at flyde */
+}
+
+.device {
+  font-size: 14px;
+  margin-top: 5px;
+  color: #555;
+}
+
+.device.light {
+  color: #ff0;
+}
+
+.device.light.off::before {
+  content: "🔌"; /* Slukket lyspære ikon */
+}
+
+.device.light.on::before {
+  content: "💡"; /* Tændt lyspære ikon */
+}
+
+.device.tv {
+  color: #00f;
+}
+
+.device.tv.on::before {
+  content: "📺"; /* Tændt TV ikon */
+}
+
+.device.tv.off::before {
+  content: "📺"; /* Slukket TV ikon (samtidig ikon) */
+}
+
+.device.radio {
+  color: #f00;
+}
+
+.device.radio.on::before {
+  content: "📻"; /* Tændt radio ikon */
+}
+
+.device.radio.off::before {
+  content: "📻"; /* Slukket radio ikon (samtidig ikon) */
+}
+
+.house::before {
+  content: "Hus";
+  display: block;
+  text-align: center;
+  font-weight: bold;
+  padding: 5px;
+  background-color: #ddd;
+  border-bottom: 2px solid #000;
+}
