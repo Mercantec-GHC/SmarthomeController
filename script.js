@@ -1,7 +1,7 @@
 async function loadRoomsWithDevices() {
   try {
     const response = await fetch(
-      "https://localhost:7264/api/Rooms/WithDevices"
+      "https://smarthomeb.mercantec.tech/api/Rooms/WithDevices"
     );
     if (!response.ok) {
       throw new Error("Network response was not ok");
@@ -58,7 +58,7 @@ window.onload = function () {
   loadRoomsWithDevices();
 
   // WebSocket-forbindelse
-  const socket = new WebSocket("wss://localhost:7264/ws/updates");
+  const socket = new WebSocket("wss://smarthomeb.mercantec.tech/ws/updates");
 
   socket.addEventListener("message", function (event) {
     // Opdater visningen, når en besked modtages
