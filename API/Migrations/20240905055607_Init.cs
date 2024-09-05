@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -39,6 +40,19 @@ namespace API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SoundUnits",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UnitName = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SoundUnits", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "RoomDevices",
                 columns: table => new
                 {
@@ -65,6 +79,26 @@ namespace API.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Sounds",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Decibel = table.Column<int>(type: "integer", nullable: false),
+                    Time = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    SoundUnitId = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sounds", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Sounds_SoundUnits_SoundUnitId",
+                        column: x => x.SoundUnitId,
+                        principalTable: "SoundUnits",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_RoomDevices_DeviceId",
                 table: "RoomDevices",
@@ -74,6 +108,11 @@ namespace API.Migrations
                 name: "IX_RoomDevices_RoomId",
                 table: "RoomDevices",
                 column: "RoomId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sounds_SoundUnitId",
+                table: "Sounds",
+                column: "SoundUnitId");
         }
 
         /// <inheritdoc />
@@ -83,10 +122,16 @@ namespace API.Migrations
                 name: "RoomDevices");
 
             migrationBuilder.DropTable(
+                name: "Sounds");
+
+            migrationBuilder.DropTable(
                 name: "Devices");
 
             migrationBuilder.DropTable(
                 name: "Rooms");
+
+            migrationBuilder.DropTable(
+                name: "SoundUnits");
         }
     }
 }

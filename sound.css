@@ -1,0 +1,21 @@
+.sound-units {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 10px;
+}
+
+.sound-unit {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.sound-unit strong {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.sound-unit canvas {
+  width: 100%;
+  height: 200px; /* Adjust height to make the graphs smaller */
+}
