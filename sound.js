@@ -1,6 +1,8 @@
 async function loadSoundUnits() {
   try {
-    const response = await fetch("https://localhost:7264/api/SoundUnits");
+    const response = await fetch(
+      "https://smarthomeb.mercantec.tech/api/SoundUnits"
+    );
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
@@ -76,7 +78,7 @@ window.onload = function () {
   loadSoundUnits();
 
   // WebSocket-forbindelse
-  const socket = new WebSocket("wss://localhost:7264/ws/updates");
+  const socket = new WebSocket("wss://smarthomeb.mercantec.tech/ws/updates");
 
   socket.addEventListener("message", function (event) {
     // Opdater visningen, når en besked modtages
