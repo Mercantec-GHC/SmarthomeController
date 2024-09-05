@@ -116,9 +116,19 @@ async function loadSoundUnits() {
         unitDiv.innerHTML += "<p>No decibel data available</p>";
       }
     });
+
+    // Update container padding based on the number of sound units
+    updateContainerPadding(soundUnits.length);
   } catch (error) {
     console.error("Der opstod en fejl:", error);
   }
+}
+
+function updateContainerPadding(numberOfUnits) {
+  const container = document.querySelector(".container");
+  const basePadding = 20; // Base padding in pixels
+  const additionalPadding = numberOfUnits * 220; // Additional padding per unit
+  container.style.paddingTop = `${basePadding + additionalPadding}px`;
 }
 
 window.onload = function () {
