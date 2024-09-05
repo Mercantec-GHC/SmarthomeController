@@ -17,20 +17,28 @@ async function loadSoundUnits() {
       unitDiv.className = "sound-unit";
       unitDiv.innerHTML = `<strong>${unit.unitName || "Ukendt enhed"}</strong>`;
 
-      const canvas = document.createElement("canvas");
-      canvas.id = `chart-${unit.id}`;
-      unitDiv.appendChild(canvas);
+      const chartsDiv = document.createElement("div");
+      chartsDiv.className = "charts";
 
+      const canvas1 = document.createElement("canvas");
+      canvas1.id = `chart1-${unit.id}`;
+      chartsDiv.appendChild(canvas1);
+
+      const canvas2 = document.createElement("canvas");
+      canvas2.id = `chart2-${unit.id}`;
+      chartsDiv.appendChild(canvas2);
+
+      unitDiv.appendChild(chartsDiv);
       soundUnitsContainer.appendChild(unitDiv);
 
       if (unit.decibelData.length > 0) {
         const labels = unit.decibelData.map((data) => new Date(data.time));
         const data = unit.decibelData.map((data) => data.decibel);
 
-        const ctx = document
-          .getElementById(`chart-${unit.id}`)
+        const ctx1 = document
+          .getElementById(`chart1-${unit.id}`)
           .getContext("2d");
-        new Chart(ctx, {
+        new Chart(ctx1, {
           type: "line",
           data: {
             labels: labels,
@@ -41,6 +49,45 @@ async function loadSoundUnits() {
                 borderColor: "rgba(75, 192, 192, 1)",
                 borderWidth: 1,
                 fill: false,
+              },
+            ],
+          },
+          options: {
+            scales: {
+              x: {
+                type: "time",
+                time: {
+                  unit: "minute",
+                },
+                title: {
+                  display: true,
+                  text: "Time",
+                },
+              },
+              y: {
+                title: {
+                  display: true,
+                  text: "Decibel",
+                },
+              },
+            },
+          },
+        });
+
+        const ctx2 = document
+          .getElementById(`chart2-${unit.id}`)
+          .getContext("2d");
+        new Chart(ctx2, {
+          type: "bar",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "Decibel",
+                data: data,
+                backgroundColor: "rgba(75, 192, 192, 0.5)",
+                borderColor: "rgba(75, 192, 192, 1)",
+                borderWidth: 1,
               },
             ],
           },
